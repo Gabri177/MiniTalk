@@ -1,38 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   servitor.c                                         :+:      :+:    :+:   */
+/*   servidor_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 20:32:39 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/07 20:58:05 by yugao            ###   ########.fr       */
+/*   Created: 2024/02/07 20:51:12 by yugao             #+#    #+#             */
+/*   Updated: 2024/02/07 22:14:47 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	receive_msg(int sig)
+static void	receive_msg_ex(int sig, siginfo_t *info, void *contest)
 {
-	static int	bit_num = 8;
 	static char	c;
+	static int	num = 8;
 
-	bit_num --;
+	num --;
+	//(void)contest;
 	if (sig == SIGUSR1)
-		c |= (1 << bit_num);
-	if (bit_num == 0)
+		c |= (1 << num);
+	if (num == 0)
 	{
 		ft_putchar_fd (c, 1);
-		bit_num = 8;
 		c = 0;
+		num = 8;
+		if (kill (info->si_pid, SIGUSR1) == -1)
+			exit (EXIT_FAILURE);
 	}
+}
+
+static void	initsig(void)
+{
+	struct sigaction	init;
+
+	init.sa_sigaction = receive_msg_ex;
+	init.sa_flags = SA_SIGINFO;
+	if (sigaction (SIGUSR1, &init, NULL) == -1)
+		exit (EXIT_FAILURE);
+	if (sigaction (SIGUSR2, &init, NULL) == -1)
+		exit (EXIT_FAILURE);
 }
 
 int	main(void)
 {
-	signal (SIGUSR1, receive_msg);
-	signal (SIGUSR2, receive_msg);
+	pid_t	pid;
 
+	initsig ();
+	pid = getpid();
+	if (!pid)
+		return (1);
 	printf ("PID: %d\n", getpid ());
 	while (1)
 		pause ();

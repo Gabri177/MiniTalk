@@ -6,7 +6,7 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 20:32:39 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/07 20:58:05 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/06 21:42:18 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	receive_msg(int sig)
 {
-	static int	bit_num = 8;
-	static char	c;
+	static int				bit_num = 8;
+	static unsigned char	c;
 
 	bit_num --;
 	if (sig == SIGUSR1)
@@ -28,13 +28,21 @@ void	receive_msg(int sig)
 	}
 }
 
-int	main(void)
+int	main(int arc, char **arg)
 {
+	pid_t	pid;
+
+	pid = getpid ();
+	if (pid <= 0)
+	{
+		ft_putstr_fd ("Get PID WRONG ! \n", 1);
+		return (1);
+	}
 	signal (SIGUSR1, receive_msg);
 	signal (SIGUSR2, receive_msg);
 
-	printf ("PID: %d\n", getpid ());
+	printf ("PID: %d\n", pid);
 	while (1)
-		pause ();
+		usleep (300);
 	return (0);
 }

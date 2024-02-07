@@ -1,52 +1,62 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cliente.c                                          :+:      :+:    :+:   */
+/*   cliente_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 20:32:41 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/07 21:19:59 by yugao            ###   ########.fr       */
+/*   Created: 2024/02/07 20:51:07 by yugao             #+#    #+#             */
+/*   Updated: 2024/02/07 22:10:14 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static void	ft_kill (pid_t pid, int sig)
-{
-	if (kill (pid, sig) == -1)
-	{
-		ft_putstr_fd ("Error cuando se intenta enviar la informacion! \n", 1);
-		exit (EXIT_FAILURE);
-	}
-}
-
 static void	send_msg(pid_t pid, char *msg)
 {
 	unsigned char	c;
-	int				bit_num;
+	int				num_bit;
 
 	while (*msg)
 	{
 		c = *msg;
-		bit_num = 8;
-		while (bit_num --)
+		num_bit = 7;
+		while (num_bit >= 0)
 		{
-			if (c & 0b10000000)
-				ft_kill (pid, SIGUSR1);
+			if (c & (1 << num_bit))
+				kill (pid, SIGUSR1);
 			else
-				ft_kill (pid, SIGUSR2);
+				kill (pid, SIGUSR2);
+			num_bit --;
 			usleep (300);
-			c <<= 1;
 		}
 		msg ++;
 	}
+}
+
+static void	receive_msg(int sig)
+{
+	if (sig == SIGUSR1)
+		ft_putstr_fd ("Received !\n", 1);
+}
+
+static void	initsig(void)
+{
+	struct sigaction	init;
+
+	init.sa_handler = receive_msg;
+	init.sa_flags = SA_SIGINFO;
+	if (sigaction (SIGUSR1, &init, NULL) == -1)
+		exit (EXIT_FAILURE);
+	if (sigaction (SIGUSR2, &init, NULL) == -1)
+		exit (EXIT_FAILURE);
 }
 
 int	main(int arc, char **arg)
 {
 	pid_t	pid;
 
+	initsig ();
 	if (arc <= 2 || arc >= 4)
 	{
 		ft_putstr_fd ("No ha introducido los argumentos correctos !\n", 1);
