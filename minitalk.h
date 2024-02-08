@@ -6,7 +6,7 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 20:30:56 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/06 21:04:56 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/07 22:39:26 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,4 @@
 # include <signal.h>
 # include <unistd.h>
 # include "./Libft/libft.h"
-
-
-
-
-
-
-
 #endif

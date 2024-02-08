@@ -6,33 +6,34 @@
 #    By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 20:32:40 by yugao             #+#    #+#              #
-#    Updated: 2024/02/07 21:01:24 by yugao            ###   ########.fr        #
+#    Updated: 2024/02/07 22:57:54 by yugao            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SOURCES = servidor.c client.c
+SOURCES = servidor.c cliente.c
 OBJECTS = $(SOURCES:.c=.o)
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
+INCLUDES = -I ./ 
 
-all: server client
-#bonus: server client
+all: do server client
+bonus: server client
 
-server: servitor.o libft
-	$(CC) -o $@ $< -LLibft -lft
+server: 
+	$(CC) -o server servidor.c ./Libft/libft.a $(INCLUDES)
 
-client: cliente.o libft
-	$(CC) -o $@ $< -LLibft -lft
+client: 
+	$(CC) -o client cliente.c ./Libft/libft.a $(INCLUDES)
 
 %.o: %.c
-	$(CC) -c $(CFLAGS) $?
+	$(CC) -c $(FLAGS) $< $(INCLUDES) -o $@
 
-libft:
-	make -C Libft
+do:
+	$(MAKE) -C Libft
 
 clean:
 	rm -f $(OBJECTS)
-	make -C Libft clean
+	$(MAKE) -C Libft clean
 	
 fclean: clean
 	rm -f server client Libft/libft.a

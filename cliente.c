@@ -6,13 +6,13 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 20:32:41 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/07 21:19:59 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/07 22:42:34 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static void	ft_kill (pid_t pid, int sig)
+static void	ft_kill(pid_t pid, int sig)
 {
 	if (kill (pid, sig) == -1)
 	{

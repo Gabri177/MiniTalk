@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   servitor.c                                         :+:      :+:    :+:   */
+/*   servidor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 20:32:39 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/06 21:42:18 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/07 22:41:46 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	receive_msg(int sig)
 	}
 }
 
-int	main(int arc, char **arg)
+int	main(void)
 {
 	pid_t	pid;
 
@@ -40,7 +40,6 @@ int	main(int arc, char **arg)
 	}
 	signal (SIGUSR1, receive_msg);
 	signal (SIGUSR2, receive_msg);
-
 	printf ("PID: %d\n", pid);
 	while (1)
 		usleep (300);
