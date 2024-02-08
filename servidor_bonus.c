@@ -6,7 +6,7 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:51:12 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/07 22:42:49 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/08 03:43:13 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	receive_msg_ex(int sig, siginfo_t *info, void *contest)
 	static int	num = 8;
 
 	num --;
+	(void)contest;
 	if (sig == SIGUSR1)
 		c |= (1 << num);
 	if (num == 0)

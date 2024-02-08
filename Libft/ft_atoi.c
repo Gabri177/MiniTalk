@@ -6,7 +6,7 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 18:48:03 by yugao             #+#    #+#             */
-/*   Updated: 2024/01/12 16:52:18 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/08 04:01:10 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,3 @@ int	ft_atoi(const char *str)
 	}
 	return (result * sign);
 }
-
-/*
-int	main(void)
-{
-	char str[] = "+    1231+  454+++    ";
-
-	printf ("%d\n", ft_atoi(str));
-	printf ("%d\n", atoi(str));
-}
-*/

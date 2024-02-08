@@ -6,38 +6,42 @@
 #    By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 20:32:40 by yugao             #+#    #+#              #
-#    Updated: 2024/02/07 22:57:54 by yugao            ###   ########.fr        #
+#    Updated: 2024/02/08 03:58:49 by yugao            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SOURCES = servidor.c cliente.c
-OBJECTS = $(SOURCES:.c=.o)
-CC = gcc
-FLAGS = -Wall -Wextra -Werror
-INCLUDES = -I ./ 
+FLAG = -Werror -Wall -Wextra
+LIBFT = ./Libft/libft.a
 
-all: do server client
-bonus: server client
+all: client server
 
-server: 
-	$(CC) -o server servidor.c ./Libft/libft.a $(INCLUDES)
+client: $(LIBFT)
+	gcc $(FLAG) -o client cliente.c $(LIBFT) -I ./ 
 
-client: 
-	$(CC) -o client cliente.c ./Libft/libft.a $(INCLUDES)
+server: $(LIBFT)
+	gcc $(FLAG) -o server servidor.c $(LIBFT) -I ./ 
 
-%.o: %.c
-	$(CC) -c $(FLAGS) $< $(INCLUDES) -o $@
+bonus: client_bonus server_bonus
 
-do:
-	$(MAKE) -C Libft
+client_bonus: $(LIBFT)
+	gcc $(FLAG) -o client_bonus cliente_bonus.c $(LIBFT) -I ./ 
 
-clean:
-	rm -f $(OBJECTS)
-	$(MAKE) -C Libft clean
+server_bonus: $(LIBFT)
+	gcc $(FLAG) -o server_bonus servidor_bonus.c $(LIBFT) -I ./ 
+
+$(LIBFT):
+	$(MAKE) -C ./Libft
 	
+%.o : %.c
+	gcc -c $(FLAG) $< -I ./ -o $@
+	
+clean:
+	$(MAKE) clean -C ./Libft
+
 fclean: clean
-	rm -f server client Libft/libft.a
+	$(MAKE) fclean -C ./Libft
+	$(RM) client server client_bonus server_bonus
 
 re: fclean all
 
-.PHONY: all bonus libft clean fclean re
+.PHONY: clean fclean all re bonus client server client_bonus server_bonus

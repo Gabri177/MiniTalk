@@ -6,13 +6,13 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 20:32:39 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/07 22:41:46 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/08 03:43:21 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	receive_msg(int sig)
+static void	receive_msg(int sig)
 {
 	static int				bit_num = 8;
 	static unsigned char	c;
