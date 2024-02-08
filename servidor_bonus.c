@@ -27,7 +27,10 @@ static void	receive_msg_ex(int sig, siginfo_t *info, void *contest)
 		c = 0;
 		num = 8;
 		if (kill (info->si_pid, SIGUSR1) == -1)
+		{
+			ft_putstr_fd ("Seed Feedback Wrong !\n", 1);
 			exit (EXIT_FAILURE);
+		}
 	}
 }
 
@@ -38,9 +41,15 @@ static void	initsig(void)
 	init.sa_sigaction = receive_msg_ex;
 	init.sa_flags = SA_SIGINFO;
 	if (sigaction (SIGUSR1, &init, NULL) == -1)
+	{
+		ft_putstr_fd ("Iniciation of Signal_1: ERROR \n", 1);
 		exit (EXIT_FAILURE);
+	}
 	if (sigaction (SIGUSR2, &init, NULL) == -1)
+	{
+		ft_putstr_fd ("Iniciation of Signal_2: ERROR \n", 1);
 		exit (EXIT_FAILURE);
+	}
 }
 
 int	main(void)
@@ -50,7 +59,10 @@ int	main(void)
 	initsig ();
 	pid = getpid();
 	if (!pid)
+	{
+		ft_putstr_fd ("Get PID Wrong! \n", 1);
 		return (1);
+	}
 	printf ("PID: %d\n", getpid ());
 	while (1)
 		pause ();

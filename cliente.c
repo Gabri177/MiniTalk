@@ -59,5 +59,6 @@ int	main(int arc, char **arg)
 		return (1);
 	}
 	send_msg (pid, arg[2]);
+	send_msg (pid, "\n");
 	return (0);
 }

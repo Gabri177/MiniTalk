@@ -37,7 +37,7 @@ static void	send_msg(pid_t pid, char *msg)
 static void	receive_msg(int sig)
 {
 	if (sig == SIGUSR1)
-		ft_putstr_fd ("Received !\n", 1);
+		ft_putstr_fd ("Character Received Successfully!\n", 1);
 }
 
 static void	initsig(void)
@@ -69,5 +69,6 @@ int	main(int arc, char **arg)
 		return (1);
 	}
 	send_msg (pid, arg[2]);
+	send_msg (pid, "\n");
 	return (0);
 }
