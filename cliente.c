@@ -36,7 +36,7 @@ static void	send_msg(pid_t pid, char *msg)
 				ft_kill (pid, SIGUSR1);
 			else
 				ft_kill (pid, SIGUSR2);
-			usleep (300);
+			usleep (30);
 			c <<= 1;
 		}
 		msg ++;
@@ -59,6 +59,6 @@ int	main(int arc, char **arg)
 		return (1);
 	}
 	send_msg (pid, arg[2]);
-	send_msg (pid, "\n");
+	//send_msg (pid, "\n");
 	return (0);
 }

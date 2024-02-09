@@ -42,6 +42,6 @@ int	main(void)
 	signal (SIGUSR2, receive_msg);
 	printf ("PID: %d\n", pid);
 	while (1)
-		usleep (300);
+		pause ();
 	return (0);
 }

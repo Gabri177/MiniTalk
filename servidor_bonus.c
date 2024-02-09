@@ -40,6 +40,9 @@ static void	initsig(void)
 
 	init.sa_sigaction = receive_msg_ex;
 	init.sa_flags = SA_SIGINFO;
+	sigemptyset (&init.sa_mask);
+	sigaddset (&init.sa_mask, SIGUSR1);
+	sigaddset (&init.sa_mask, SIGUSR2);
 	if (sigaction (SIGUSR1, &init, NULL) == -1)
 	{
 		ft_putstr_fd ("Iniciation of Signal_1: ERROR \n", 1);

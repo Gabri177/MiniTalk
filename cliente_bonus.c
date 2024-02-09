@@ -12,6 +12,15 @@
 
 #include "minitalk.h"
 
+static void	ft_kill(pid_t pid, int sig)
+{
+	if (kill (pid, sig) == -1)
+	{
+		ft_putstr_fd ("Error cuando se intenta enviar la informacion! \n", 1);
+		exit (EXIT_FAILURE);
+	}
+}
+
 static void	send_msg(pid_t pid, char *msg)
 {
 	unsigned char	c;
@@ -24,11 +33,11 @@ static void	send_msg(pid_t pid, char *msg)
 		while (num_bit >= 0)
 		{
 			if (c & (1 << num_bit))
-				kill (pid, SIGUSR1);
+				ft_kill (pid, SIGUSR1);
 			else
-				kill (pid, SIGUSR2);
+				ft_kill (pid, SIGUSR2);
 			num_bit --;
-			usleep (300);
+			usleep (30);
 		}
 		msg ++;
 	}
@@ -47,9 +56,15 @@ static void	initsig(void)
 	init.sa_handler = receive_msg;
 	init.sa_flags = SA_SIGINFO;
 	if (sigaction (SIGUSR1, &init, NULL) == -1)
+	{
+		ft_putstr_fd ("Set Signal Error: SIGNAL_1\n", 1);
 		exit (EXIT_FAILURE);
+	}
 	if (sigaction (SIGUSR2, &init, NULL) == -1)
+	{
+		ft_putstr_fd ("Sst Signal Error: SIGNAL_2\n", 1);
 		exit (EXIT_FAILURE);
+	}	
 }
 
 int	main(int arc, char **arg)
@@ -69,6 +84,6 @@ int	main(int arc, char **arg)
 		return (1);
 	}
 	send_msg (pid, arg[2]);
-	send_msg (pid, "\n");
+	//send_msg (pid, "\n");
 	return (0);
 }
