@@ -6,7 +6,7 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 20:32:41 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/08 03:47:19 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/09 21:14:55 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,5 @@ int	main(int arc, char **arg)
 		return (1);
 	}
 	send_msg (pid, arg[2]);
-	//send_msg (pid, "\n");
 	return (0);
 }

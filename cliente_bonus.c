@@ -6,7 +6,7 @@
 /*   By: yugao <yugao@student.42madrid.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:51:07 by yugao             #+#    #+#             */
-/*   Updated: 2024/02/08 03:47:03 by yugao            ###   ########.fr       */
+/*   Updated: 2024/02/09 19:56:45 by yugao            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	initsig(void)
 	{
 		ft_putstr_fd ("Sst Signal Error: SIGNAL_2\n", 1);
 		exit (EXIT_FAILURE);
-	}	
+	}
 }
 
 int	main(int arc, char **arg)
@@ -84,6 +84,5 @@ int	main(int arc, char **arg)
 		return (1);
 	}
 	send_msg (pid, arg[2]);
-	//send_msg (pid, "\n");
 	return (0);
 }
