@@ -12,31 +12,44 @@
 
 FLAG = -Werror -Wall -Wextra
 LIBFT = ./Libft/libft.a
+CFILE_CLIENTE = cliente.c
+CFILE_SERVIDOR = servidor.c
+CFILE_C_BONUS = cliente_bonus.c
+CFILE_S_BONUS = servidor_bonus.c
+OFILE_CLIENTE = cliente.o
+OFILE_SERVIDOR = servidor.o
+OFILE_C_BONUS = cliente_bonus.o
+OFILE_S_BONUS = servidor_bonus.o
+CLIENT = client
+SERVER = server
+CLIENT_BONUS = client_bonus
+SERVER_BONUS = server_bonus
 
-all: client server
-
-client: $(LIBFT)
-	gcc $(FLAG) -o client cliente.c $(LIBFT) -I ./ 
-
-server: $(LIBFT)
-	gcc $(FLAG) -o server servidor.c $(LIBFT) -I ./ 
-
-bonus: client_bonus server_bonus
-
-client_bonus: $(LIBFT)
-	gcc $(FLAG) -o client_bonus cliente_bonus.c $(LIBFT) -I ./ 
-
-server_bonus: $(LIBFT)
-	gcc $(FLAG) -o server_bonus servidor_bonus.c $(LIBFT) -I ./ 
+all: $(LIBFT) $(CLIENT) $(SERVER)
 
 $(LIBFT):
 	$(MAKE) -C ./Libft
-	
+
+$(CLIENT): $(OFILE_CLIENTE)
+	gcc $(FLAG) -o $(CLIENT) $^ $(LIBFT) 
+
+$(SERVER): $(OFILE_SERVIDOR)
+	gcc $(FLAG) -o $(SERVER) $^ $(LIBFT)
+
 %.o : %.c
-	gcc -c $(FLAG) $< -I ./ -o $@
+	gcc $(FLAG) -c $< -o $@
+
+bonus: $(CLIENT_BONUS) $(SERVER_BONUS) $(LIBFT)
+
+$(CLIENT_BONUS): $(OFILE_C_BONUS)
+	gcc $(FLAG) -o $(CLIENT_BONUS) $^ $(LIBFT)
+
+$(SERVER_BONUS): $(OFILE_S_BONUS)
+	gcc $(FLAG) -o $(SERVER_BONUS) $^ $(LIBFT)
 	
 clean:
 	$(MAKE) clean -C ./Libft
+	rm -rf $(OFILE_CLIENTE) $(OFILE_SERVIDOR) $(OFILE_C_BONUS) $(OFILE_S_BONUS)
 
 fclean: clean
 	$(MAKE) fclean -C ./Libft

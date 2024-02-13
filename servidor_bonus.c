@@ -66,7 +66,7 @@ int	main(void)
 		ft_putstr_fd ("Get PID Wrong! \n", 1);
 		return (1);
 	}
-	printf ("PID: %d\n", getpid ());
+	ft_putnbr_fd (pid, 1);
 	while (1)
 		pause ();
 	return (0);

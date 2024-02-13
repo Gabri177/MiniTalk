@@ -63,7 +63,7 @@ int	main(void)
 		return (1);
 	}
 	initsig ();
-	printf ("PID: %d\n", pid);
+	ft_putnbr_fd (pid, 1);
 	while (1)
 		pause ();
 	return (0);
