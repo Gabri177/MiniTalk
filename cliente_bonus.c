@@ -37,7 +37,7 @@ static void	send_msg(pid_t pid, char *msg)
 			else
 				ft_kill (pid, SIGUSR2);
 			num_bit --;
-			usleep (30);
+			usleep (100);
 		}
 		msg ++;
 	}
