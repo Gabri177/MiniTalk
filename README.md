@@ -43,7 +43,7 @@ Server PID: 1234
 ## Installation
 Clone the repository and compile the project:
 ```bash
-git clone https://github.com/yourusername/minitalk.git
+git clone https://github.com/Gabri177/minitalk.git
 cd minitalk
 make
 ```
