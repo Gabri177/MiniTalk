@@ -40,9 +40,9 @@ Server PID: 1234
 ./client 1234 "Hello, Minitalk!"
 ```
 
-##Installation
+## Installation
 Clone the repository and compile the project:
-```
+```bash
 git clone https://github.com/yourusername/minitalk.git
 cd minitalk
 make
