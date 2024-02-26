@@ -54,15 +54,9 @@ static void	initsig(void)
 	struct sigaction	init;
 
 	init.sa_handler = receive_msg;
-	init.sa_flags = SA_SIGINFO;
 	if (sigaction (SIGUSR1, &init, NULL) == -1)
 	{
 		ft_putstr_fd ("Set Signal Error: SIGNAL_1\n", 1);
-		exit (EXIT_FAILURE);
-	}
-	if (sigaction (SIGUSR2, &init, NULL) == -1)
-	{
-		ft_putstr_fd ("Sst Signal Error: SIGNAL_2\n", 1);
 		exit (EXIT_FAILURE);
 	}
 }
